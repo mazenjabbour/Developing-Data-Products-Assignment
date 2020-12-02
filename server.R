@@ -1,18 +1,13 @@
 library(shiny)
-shinyServer(function(input, output) {
-  output$plot1 <- renderPlot({
-    set.seed(2020-12-1)
-    number_of_points <- input$numeric
-    minX <- input$sliderX[1]
-    maxX <- input$sliderX[2]
-    minY <- input$sliderY[1]
-    maxY <- input$sliderY[2]
-    dataX <- runif(number_of_points, minX, maxX)
-    dataY <- runif(number_of_points, minY, maxY)
-    xlab <- ifelse(input$show_xlab, "X Axis", "")
-    ylab <- ifelse(input$show_ylab, "Y Axis", "")
-    main <- ifelse(input$show_title, "Title", "")
-    plot(dataX, dataY, xlab = xlab, ylab = ylab, main = main,
-         xlim = c(-500, 500), ylim = c(-500, 500))
-  })
-})
+
+shinyServer( 
+  function(input, output) {
+    output$length <- renderText({as.numeric(input$length)})
+    output$breadth <- renderText({as.numeric(input$length)})
+    output$area <- renderText({
+      # if (input$goButton == 0) "Please enter a number"
+      # else if (input$goButton >= 1) numberGuessed(as.numeric(input$guess), number)
+      output$area <- renderPrint ({as.numeric(input$length) * as.numeric(input$breadth)})
+    })
+  }
+)
